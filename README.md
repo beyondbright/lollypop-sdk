@@ -1,14 +1,14 @@
 # 说明
-- 这是一个完整的Demo，直接用AS打开就可以跑起来。
-- 在AS新项目中如何使用
-1. 添加dependencies
+## 这是一个完整的Demo，直接用AS打开就可以跑起来。
+## 在AS新项目中如何使用
+- 添加dependencies
 ```
 compile 'cn.lollypop.android:bm-base:0.0.2'
 compile 'cn.lollypop.android:bm-bluetooth:0.0.3'
 compile 'com.orhanobut:logger:1.15'
 compile 'com.google.code.gson:gson:2.5'
 ```
-2. 在AndroidManifest.xml中添加权限蓝牙相关权限及service
+- 在AndroidManifest.xml中添加权限蓝牙相关权限及service
 ```
 <uses-permission android:name="android.permission.BLUETOOTH"/>
 <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
@@ -19,7 +19,7 @@ compile 'com.google.code.gson:gson:2.5'
   <service android:name="cn.lollypop.android.thermometer.ble.BleAutoConnectService"/>
 </application>
 ```
-3. 在自定义Activity或者Application的onCreate方法中绑定BleAutoConnectService，别忘了在onDestroy方法中解绑。
+- 在自定义Activity或者Application的onCreate方法中绑定BleAutoConnectService，别忘了在onDestroy方法中解绑。
 ```
 @Override
 protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ protected void onDestroy() {
   unbindService(serviceConnection);
 }
 ```
-4. 在ServiceConnection中注册BleCallback回调方法
+- 在ServiceConnection中注册BleCallback回调方法
 ```
 private final ServiceConnection serviceConnection = new ServiceConnection() {
   @Override
@@ -64,7 +64,7 @@ private void unregisterBleCallback(BleCallback bleCallback) {
   }
 }
 ```
-5. 设备回调信息都在bleCallback中
+- 设备回调信息都在bleCallback中
 ```
 private final BleCallback bleCallback = new BleCallback() {
   @Override
@@ -89,8 +89,8 @@ private final BleCallback bleCallback = new BleCallback() {
   }
 };
 ```
-- BleAutoConnectService的相关接口说明
-1. scanAndConnect
-2. disconnect
-3. connect
-4. reconnect
+## BleAutoConnectService的相关接口说明
+- scanAndConnect
+- disconnect
+- connect
+- reconnect
