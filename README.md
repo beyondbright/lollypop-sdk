@@ -1,5 +1,5 @@
 # 说明
-- 这是一个完整的Demo，直接用AS打开就可以跑起来
+- 这是一个完整的Demo，直接用AS打开就可以跑起来。
 - 在AS新项目中如何使用
 -- 添加dependencies
 ```
@@ -89,5 +89,8 @@ private final BleCallback bleCallback = new BleCallback() {
   }
 };
 ```
-- 相关接口说明
--- 
+- BleAutoConnectService的相关接口说明
+-- scanAndConnect
+-- disconnect
+-- connect
+-- reconnect
