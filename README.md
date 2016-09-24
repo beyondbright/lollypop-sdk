@@ -1,6 +1,6 @@
 # 说明
 ## 这是一个完整的Demo，直接用AS打开就可以跑起来。
-## 蓝牙的SDK主要封装了一个Service，类名叫`BleAutoConnectService`，主要接口说明
+## 相关的蓝牙的SDK已经封装到Service，类名叫`BleAutoConnectService`，其主要接口说明如下：
 - `scanAndConnect`
 该方法扫描Femometer设备,并选择信号最强的设备进行连接，连接成功后会回调`BleStatus.CONNECTED`，带的参数值是对应的设备地址。该方法在绑定体温计时使用，获取到设备地址后缓存下来，以后的连接直接用`connect`方法就可以。
 - `disconnect`
@@ -11,6 +11,7 @@
 一般调用connect后40秒还未连接成功,可能原因有两种:
 1、体温计进入休眠状态,需要插拔盖子唤醒。体温计唤醒后调用该方法进行重连。
 2、手机蓝牙死机,重启蓝牙或者重启手机恢复。
+
 ## 在AS项目中如何使用`BleAutoConnectService`类
 - 添加dependencies
 ```
