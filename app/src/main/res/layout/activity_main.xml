@@ -19,34 +19,48 @@
           android:layout_height="match_parent"/>
     </LinearLayout>
   </ScrollView>
+
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="horizontal">
-    <Button
-        android:id="@+id/scanAndConnect"
-        android:text="scanConnect"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <Button
-        android:id="@+id/disconnect"
-        android:text="disconnect"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-  </LinearLayout>
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal">
+
     <Button
         android:id="@+id/connect"
-        android:text="connect"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Connect"
+        android:textAllCaps="false"/>
+
     <Button
-        android:id="@+id/reconnect"
-        android:text="reconnect"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:id="@+id/getDeviceInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="GetDeviceInfo"
+        android:textAllCaps="false"/>
+  </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/disconnect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Disconnect"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/signOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="SignOut"
+        android:textAllCaps="false"/>
   </LinearLayout>
 </LinearLayout>
