@@ -1,7 +1,7 @@
-# 说明
+# LollypopSDK说明
 LollypopSDK提供了连接棒米体温计(Femometer)并与之交互的接口。
 ## 相关接口
-- 创建用户，所有体温都对应一个用户，没有用户必须先创建用户。
+- 创建用户。向官方申请appKey之后需要创建用户才能使用该SDK
 
 ```
   /**
@@ -15,7 +15,7 @@ LollypopSDK提供了连接棒米体温计(Femometer)并与之交互的接口。
   public void createUser(Context context, String appKey, long phone, String password)
 ```
 
-- 登录，在连接蓝牙之前必须先登录。
+- 登录，在连接蓝牙之前必须先登录
 
 ```
   /**
@@ -110,13 +110,10 @@ LollypopSDK提供了连接棒米体温计(Femometer)并与之交互的接口。
   }
 ```
 
-## 在AS新项目中如何使用
+## 相关配置
 - 添加dependencies
 ```
-compile 'cn.lollypop.android:bm-base:0.0.2'
-compile 'cn.lollypop.android:bm-bluetooth:0.0.3'
-compile 'com.orhanobut:logger:1.15'
-compile 'com.google.code.gson:gson:2.5'
+compile 'cn.lollypop.android:LollypopSDK:1.2.3'
 ```
 - 在AndroidManifest.xml中添加权限蓝牙相关权限及Service
 ```
