@@ -7,6 +7,7 @@ LollypopSDK提供了连接棒米体温计(Femometer)的相关接口。
 4. 调用`LollypopSDK.getInstance().createUser()`方法创建用户或者`LollypopSDK.getInstance().signIn()`方法登录
 5. 调用`LollypopSDK.getInstance().connect()`方法连接体温计，同时插拔一下体温计以唤醒体温计
 6. 连接成功后可以调用`LollypopSDK.getInstance().getDeviceInfo()`方法获取设备信息，测温成功会在第三步注册的`receiveTemperature()`方法里回调
+
 ## 相关配置
 - 添加dependencies
 ```
