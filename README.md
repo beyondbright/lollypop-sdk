@@ -1,5 +1,32 @@
 # LollypopSDK说明
-LollypopSDK提供了连接棒米体温计(Femometer)并与之交互的接口。
+LollypopSDK提供了连接棒米体温计(Femometer)的相关接口。
+## 使用流程
+1. 向棒米官方申请appKey
+2. 使用gradle添加依赖`cn.lollypop.android:LollypopSDK:1.2.3`，详见下面配置
+3. 调用`LollypopSDK.getInstance().registerCallback`注册回调
+4. 调用`LollypopSDK.getInstance().createUser()`方法创建用户或者`LollypopSDK.getInstance().signIn()`方法登录
+5. 调用`LollypopSDK.getInstance().connect()`方法连接体温计，同时插拔一下体温计以唤醒体温计
+6. 连接成功后可以调用`LollypopSDK.getInstance().getDeviceInfo()`方法获取设备信息，测温成功会在第三步注册的`receiveTemperature()`方法里回调
+## 相关配置
+- 添加dependencies
+```
+compile 'cn.lollypop.android:LollypopSDK:1.2.3'
+```
+- 在AndroidManifest.xml中添加权限蓝牙相关权限及Service
+```
+<!-- 蓝牙 -->
+<uses-permission android:name="android.permission.BLUETOOTH"/>
+<uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+<uses-feature
+    android:name="android.hardware.bluetooth_le"
+    android:required="false"/>
+<!-- 网络 -->
+<uses-permission android:name="android.permission.INTERNET"/>
+
+<application>
+  <service android:name="cn.lollypop.android.thermometer.ble.BleAutoConnectService"/>
+</application>
+```
 ## 相关接口
 - 创建用户。向官方申请appKey之后需要创建用户才能使用该SDK
 
@@ -108,25 +135,4 @@ LollypopSDK提供了连接棒米体温计(Femometer)并与之交互的接口。
     // 收到体温数据 Temperature {temperatureInt: 温度Int型（比如收到3655，就是36.55摄氏度），measureTimestamp：测温的时间戳，calculate：是否是预测值，deviceUserId：预留字段}
     void receiveTemperature(Temperature temperature);
   }
-```
-
-## 相关配置
-- 添加dependencies
-```
-compile 'cn.lollypop.android:LollypopSDK:1.2.3'
-```
-- 在AndroidManifest.xml中添加权限蓝牙相关权限及Service
-```
-<!-- 蓝牙 -->
-<uses-permission android:name="android.permission.BLUETOOTH"/>
-<uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-<uses-feature
-    android:name="android.hardware.bluetooth_le"
-    android:required="false"/>
-<!-- 网络 -->
-<uses-permission android:name="android.permission.INTERNET"/>
-
-<application>
-  <service android:name="cn.lollypop.android.thermometer.ble.BleAutoConnectService"/>
-</application>
 ```
