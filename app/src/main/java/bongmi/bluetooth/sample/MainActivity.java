@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     } catch (LollypopException e) {
       log.append(e.getMessage() + "\n");
     }
-    connect.setEnabled(true);
   }
 
   @Override
@@ -83,6 +82,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (LollypopException e) {
           log.append(e.getMessage() + "\n");
         }
+        connect.setEnabled(true);
+        disconnect.setEnabled(false);
         break;
 
       case R.id.connect:
