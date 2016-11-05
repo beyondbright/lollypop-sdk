@@ -42,6 +42,9 @@ public class LoginActivity extends AppCompatActivity
     Button signIn = (Button) findViewById(R.id.signIn);
     signIn.setOnClickListener(this);
 
+    // enable debug model to show logs
+    // LollypopSDK.getInstance().enableDebug();
+
     LollypopSDK.getInstance().registerCallback(
         new LollypopSDK.LollypopCallback() {
           @Override

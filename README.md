@@ -2,7 +2,7 @@
 LollypopSDK提供了连接棒米体温计(Femometer)的相关接口。
 ## 使用流程
 1. 向棒米官方申请appKey
-2. 使用gradle添加依赖`cn.lollypop.android:LollypopSDK:1.2.3`，详见下面配置
+2. 使用gradle添加依赖，详见下面的相关配置
 3. 调用`LollypopSDK.getInstance().registerCallback`注册回调
 4. 调用`LollypopSDK.getInstance().createUser()`方法创建用户或者`LollypopSDK.getInstance().signIn()`方法登录
 5. 调用`LollypopSDK.getInstance().connect()`方法连接体温计，同时插拔一下体温计以唤醒体温计
@@ -11,7 +11,7 @@ LollypopSDK提供了连接棒米体温计(Femometer)的相关接口。
 ## 相关配置
 - 添加dependencies
 ```
-compile 'cn.lollypop.android:LollypopSDK:1.2.3'
+compile 'cn.lollypop.android:LollypopSDK:1.3.4'
 ```
 - 在AndroidManifest.xml中添加权限蓝牙相关权限及Service
 ```
@@ -85,7 +85,7 @@ compile 'cn.lollypop.android:LollypopSDK:1.2.3'
 
 2、手机蓝牙死机,重启蓝牙或者重启手机恢复。
 
-- 断开连接。在Activity中调用connect方法，那在Activity销毁的时候需要调用disconnect方法。因为在connect方法中有绑定蓝牙的service，需要在disconnect方法中解绑。
+- 断开连接。如果在Activity中调用connect方法，那在Activity销毁的时候需要调用disconnect方法。因为在connect方法中有绑定蓝牙的service，需要在disconnect方法中解绑。
 
 ```
   /**
