@@ -1,7 +1,13 @@
 package bongmi.bluetooth.sample;
 
+import java.util.ArrayList;
+
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -42,7 +48,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
           public void createUser(boolean b, String s) {}
 
           @Override
-          public void login(boolean b, String s) {}
+          public void login(boolean b, String s) {
+          }
 
           @Override
           public void connect() {
@@ -87,12 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         break;
 
       case R.id.connect:
-        try {
-          LollypopSDK.getInstance().connect(this);
-        } catch (LollypopException e) {
-          log.append(e.getMessage() + "\n");
-        }
-        connect.setEnabled(false);
+        doConnect();
         break;
 
       case R.id.getDeviceInfo:
@@ -113,5 +115,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
       default:
         break;
     }
+  }
+
+  private void doConnect() {
+    if (LollypopSDK.getInstance().needGPSPermission(this)) {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        ArrayList<String> permissions = new ArrayList<>();
+
+        if (!(ContextCompat.checkSelfPermission(this,
+            Manifest.permission.ACCESS_COARSE_LOCATION)
+            == PackageManager.PERMISSION_GRANTED)) {
+          permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+        }
+        if (!(ContextCompat.checkSelfPermission(this,
+            Manifest.permission.ACCESS_FINE_LOCATION)
+            == PackageManager.PERMISSION_GRANTED)) {
+          permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+        if (permissions.size() > 0) {
+          requestPermissions(permissions.toArray(
+              new String[permissions.size()]), 100);
+        }
+      }
+      log.append("请开启GPS并授权\n");
+      return;
+    }
+
+    try {
+      LollypopSDK.getInstance().connect(this);
+    } catch (LollypopException e) {
+      log.append(e.getMessage() + "\n");
+    }
+    connect.setEnabled(false);
   }
 }

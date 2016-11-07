@@ -11,7 +11,7 @@ LollypopSDK提供了连接棒米体温计(Femometer)的相关接口。
 ## 相关配置
 - 添加dependencies
 ```
-compile 'cn.lollypop.android:LollypopSDK:1.3.4'
+compile 'cn.lollypop.android:LollypopSDK:1.3.6'
 ```
 - 在AndroidManifest.xml中添加权限蓝牙相关权限及Service
 ```
@@ -23,6 +23,8 @@ compile 'cn.lollypop.android:LollypopSDK:1.3.4'
     android:required="false"/>
 <!-- 网络 -->
 <uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
 <application>
   <service android:name="cn.lollypop.android.thermometer.ble.BleAutoConnectService"/>
@@ -136,4 +138,15 @@ compile 'cn.lollypop.android:LollypopSDK:1.3.4'
     // 收到体温数据 Temperature {temperatureInt: 温度Int型（比如收到3655，就是36.55摄氏度），measureTimestamp：测温的时间戳，calculate：是否是预测值，deviceUserId：预留字段}
     void receiveTemperature(Temperature temperature);
   }
+```
+
+- 是否需要GPS授权
+
+```
+  /**
+   * 是否需要开启GPS定位, Android 6.0之后扫描蓝牙需要开启GPS定位！
+   * @param context context
+   * @return true 需要开启GPS定位，false 不需要开启GPS定位
+   */
+  public boolean needGPSPermission(Context context)
 ```
