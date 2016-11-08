@@ -11,7 +11,7 @@ LollypopSDK提供了连接棒米体温计(Femometer)的相关接口。
 ## 相关配置
 - 添加dependencies
 ```
-compile 'cn.lollypop.android:LollypopSDK:1.3.6'
+compile 'cn.lollypop.android:LollypopSDK:1.4.1'
 ```
 - 在AndroidManifest.xml中添加权限蓝牙相关权限及Service
 ```
