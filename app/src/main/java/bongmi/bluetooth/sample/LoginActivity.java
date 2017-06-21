@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import cn.lollypop.android.thermometer.ble.model.Temperature;
+import cn.lollypop.android.thermometer.network.basic.Response;
 import cn.lollypop.android.thermometer.sdk.LollypopSDK;
 
 /**
@@ -43,25 +44,27 @@ public class LoginActivity extends AppCompatActivity
     signIn.setOnClickListener(this);
 
     // enable debug model to show logs
-    // LollypopSDK.getInstance().enableDebug();
+    LollypopSDK.getInstance().enableDebug();
 
     LollypopSDK.getInstance().registerCallback(
         new LollypopSDK.LollypopCallback() {
           @Override
-          public void createUser(boolean result, String errorMsg) {
-            if (result) {
+          public void createUser(Response response) {
+            if (response.isSuccessful()) {
               loginSuc();
             } else {
-              log.setText(errorMsg);
+              log.setText("code: " + response.getCode() + ", msg: "
+                  + response.getMessage());
             }
           }
 
           @Override
-          public void login(boolean result, String errorMsg) {
-            if (result) {
+          public void login(Response response) {
+            if (response.isSuccessful()) {
               loginSuc();
             } else {
-              log.setText(errorMsg);
+              log.setText("code: " + response.getCode() + ", msg: "
+                  + response.getMessage());
             }
           }
 
@@ -80,6 +83,9 @@ public class LoginActivity extends AppCompatActivity
 
           }
         });
+    if (LollypopSDK.getInstance().isLogin(this)) {
+      loginSuc();
+    }
   }
 
   @Override

@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import cn.lollypop.android.thermometer.ble.model.Temperature;
 import cn.lollypop.android.thermometer.device.storage.DeviceInfo;
+import cn.lollypop.android.thermometer.network.basic.Response;
 import cn.lollypop.android.thermometer.sdk.LollypopSDK;
 import cn.lollypop.be.exception.LollypopException;
 
@@ -45,11 +46,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     LollypopSDK.getInstance().registerCallback(
         new LollypopSDK.LollypopCallback() {
           @Override
-          public void createUser(boolean b, String s) {}
+          public void createUser(Response response) {}
 
           @Override
-          public void login(boolean b, String s) {
-          }
+          public void login(Response response) {}
 
           @Override
           public void connect() {

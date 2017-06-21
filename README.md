@@ -3,15 +3,16 @@ LollypopSDK提供了连接棒米体温计(Femometer)的相关接口。
 ## 使用流程
 1. 向棒米官方申请appKey
 2. 使用gradle添加依赖，详见下面的相关配置
-3. 调用`LollypopSDK.getInstance().registerCallback`注册回调
-4. 调用`LollypopSDK.getInstance().createUser()`方法创建用户或者`LollypopSDK.getInstance().signIn()`方法登录
-5. 调用`LollypopSDK.getInstance().connect()`方法连接体温计，同时插拔一下体温计以唤醒体温计
-6. 连接成功后可以调用`LollypopSDK.getInstance().getDeviceInfo()`方法获取设备信息，测温成功会执行在第三步注册的`receiveTemperature()`回调方法
+3. 初始化SDK，调用`LollypopSDK.getInstance().init()`，建议在application中调用
+4. 调用`LollypopSDK.getInstance().registerCallback`注册回调
+5. 调用`LollypopSDK.getInstance().createUser()`方法创建用户或者`LollypopSDK.getInstance().signIn()`方法登录，已经登录过就不需要重新登录，是否已经登录可用方法`LollypopSDK.getInstance().isLogin()`来判断
+6. 调用`LollypopSDK.getInstance().connect()`方法连接体温计，同时插拔一下体温计以唤醒体温计
+7. 连接成功后可以调用`LollypopSDK.getInstance().getDeviceInfo()`方法获取设备信息，测温成功会执行在第三步注册的`receiveTemperature()`回调方法
 
 ## 相关配置
 - 添加dependencies
 ```
-compile 'cn.lollypop.android:LollypopSDK:1.4.1'
+compile 'cn.lollypop.android:LollypopSDK:1.4.3'
 ```
 - 在AndroidManifest.xml中添加权限蓝牙相关权限及Service
 ```
@@ -31,6 +32,10 @@ compile 'cn.lollypop.android:LollypopSDK:1.4.1'
 </application>
 ```
 ## 相关接口
+- 初始化SDK。建议在Application中调用
+```
+public void init(Context context)
+```
 - 创建用户。向官方申请appKey之后需要创建用户才能使用该SDK
 
 ```
@@ -58,6 +63,17 @@ compile 'cn.lollypop.android:LollypopSDK:1.4.1'
   public void signIn(Context context, String appKey, long phone, String password)
 ```
 
+- 是否已经登录，已经登录过了就不需要重新登录了
+
+```
+  /**
+   * 是否已经登录
+   * @param context context
+   * @return 已经登录则返回true
+   */
+  public boolean isLogin(Context context)
+```
+  
 - 登出，需要切换用户的时候先调用登出方法，再重新登录
 
 ```
@@ -124,10 +140,10 @@ compile 'cn.lollypop.android:LollypopSDK:1.4.1'
 
   public interface LollypopCallback {
     // 创建用户回调
-    void createUser(boolean result, String errorMsg);
+    void createUser(Response response);
 
     // 登录回调
-    void login(boolean result, String errorMsg);
+    void login(Response response);
 
     // 连接成功回调
     void connect();
