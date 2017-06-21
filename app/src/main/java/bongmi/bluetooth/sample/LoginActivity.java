@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity
               loginSuc();
             } else {
               log.setText("code: " + response.getCode() + ", msg: "
-                  + response.getMessage());
+                  + response.getMessage() + ", body: " + response.getBody());
             }
           }
 
@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity
               loginSuc();
             } else {
               log.setText("code: " + response.getCode() + ", msg: "
-                  + response.getMessage());
+                  + response.getMessage() + ", body: " + response.getBody());
             }
           }
 
