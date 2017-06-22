@@ -4,7 +4,7 @@ LollypopSDK提供了连接棒米体温计(Femometer)的相关接口。
 1. 向棒米官方申请appKey
 2. 使用gradle添加依赖，详见下面的相关配置
 3. 初始化SDK，调用`LollypopSDK.getInstance().init()`，建议在application中调用
-4. 调用`LollypopSDK.getInstance().registerCallback`注册回调
+4. 调用`LollypopSDK.getInstance().registerCallback()`注册回调
 5. 调用`LollypopSDK.getInstance().createUser()`方法创建用户或者`LollypopSDK.getInstance().signIn()`方法登录，已经登录过就不需要重新登录，是否已经登录可用方法`LollypopSDK.getInstance().isLogin()`来判断
 6. 调用`LollypopSDK.getInstance().connect()`方法连接体温计，同时插拔一下体温计以唤醒体温计
 7. 连接成功后可以调用`LollypopSDK.getInstance().getDeviceInfo()`方法获取设备信息，测温成功会执行在第三步注册的`receiveTemperature()`回调方法
@@ -12,7 +12,7 @@ LollypopSDK提供了连接棒米体温计(Femometer)的相关接口。
 ## 相关配置
 - 添加dependencies
 ```
-compile 'cn.lollypop.android:LollypopSDK:1.4.3'
+compile 'cn.lollypop.android:LollypopSDK:1.4.4'
 ```
 - 在AndroidManifest.xml中添加权限蓝牙相关权限及Service
 ```
@@ -91,10 +91,9 @@ public void init(Context context)
   /**
    * 连接体温计
    *
-   * @param context context
    * @throws LollypopException
    */
-  public void connect(Context context) throws LollypopException
+  public void connect() throws LollypopException
 ```
 
 一般调用connect后40秒还未连接成功,可能原因有两种:
@@ -109,10 +108,9 @@ public void init(Context context)
   /**
    * 断开连接
    *
-   * @param context context
    * @throws LollypopException
    */
-  public void disconnect(Context context) throws LollypopException
+  public void disconnect() throws LollypopException
 ```
 
 - 获取设备信息，连接成功后可以调用该接口获取设备信息
