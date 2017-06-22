@@ -74,9 +74,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     super.onDestroy();
 
     try {
-      LollypopSDK.getInstance().disconnect(this);
-    } catch (LollypopException e) {
-      log.append(e.getMessage() + "\n");
+      LollypopSDK.getInstance().disconnect();
+    } catch (Exception e) {
     }
   }
 
@@ -85,8 +84,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     switch (v.getId()) {
       case R.id.disconnect:
         try {
-          LollypopSDK.getInstance().disconnect(this);
-        } catch (LollypopException e) {
+          LollypopSDK.getInstance().disconnect();
+        } catch (Exception e) {
           log.append(e.getMessage() + "\n");
         }
         connect.setEnabled(true);
@@ -142,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     try {
-      LollypopSDK.getInstance().connect(this);
+      LollypopSDK.getInstance().connect();
     } catch (LollypopException e) {
       log.append(e.getMessage() + "\n");
     }
