@@ -1,5 +1,5 @@
 # LollypopSDK说明
-LollypopSDK提供了连接棒米体温计(Femometer)的相关接口。
+LollypopSDK提供了连接棒米体温计(Femometer)和棒米耳温枪(Earmo)的相关接口。
 ## 使用流程
 1. 向棒米官方申请appKey
 2. 使用gradle添加依赖，详见下面的相关配置
@@ -12,7 +12,7 @@ LollypopSDK提供了连接棒米体温计(Femometer)的相关接口。
 ## 相关配置
 - 添加dependencies
 ```
-compile 'cn.lollypop.android:LollypopSDK:1.4.4'
+compile 'cn.lollypop.android:LollypopSDK:1.5.4'
 ```
 - 在AndroidManifest.xml中添加权限蓝牙相关权限及Service
 ```
@@ -32,9 +32,9 @@ compile 'cn.lollypop.android:LollypopSDK:1.4.4'
 </application>
 ```
 ## 相关接口
-- 初始化SDK。建议在Application中调用
+- 初始化SDK。建议在Application中调用，type选择体温计(FEMOMETER)还是耳温枪(EARMO)
 ```
-public void init(Context context)
+public void init(Context context, LollypopSDK.Type type)
 ```
 - 创建用户。向官方申请appKey之后需要创建用户才能使用该SDK
 
@@ -126,6 +126,16 @@ public void init(Context context)
   public DeviceInfo getDeviceInfo(Context context) throws LollypopException
 ```
 
+- 设置单位
+```
+  /**
+   * 设置耳温枪的单位
+   *
+   * @param isCentigrade 是否设置成摄氏度
+   */
+  public void setUnit(boolean isCentigrade) throws LollypopException
+```
+
 - 设置回调方法
 
 ```
@@ -144,7 +154,7 @@ public void init(Context context)
     void login(Response response);
 
     // 连接成功回调
-    void connect();
+    void connect(boolean suc);
 
     // 断开连接回调
     void disconnect();

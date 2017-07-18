@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity
           }
 
           @Override
-          public void connect() {
+          public void connect(boolean suc) {
 
           }
 
