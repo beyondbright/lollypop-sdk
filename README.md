@@ -1,5 +1,5 @@
 # LollypopSDK说明
-LollypopSDK提供了连接棒米体温计(Femometer)的相关接口。
+LollypopSDK提供了连接棒米体温计(Femometer)和棒米耳温枪(Earmo)的相关接口。
 ## 使用流程
 1. 向棒米官方申请appKey
 2. 使用gradle添加依赖，详见下面的相关配置
