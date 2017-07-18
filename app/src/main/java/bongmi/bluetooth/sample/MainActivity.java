@@ -52,9 +52,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
           public void login(Response response) {}
 
           @Override
-          public void connect() {
-            log.append("connected\n");
-            disconnect.setEnabled(true);
+          public void connect(boolean suc) {
+            if (suc) {
+              log.append("connected\n");
+              disconnect.setEnabled(true);
+            } else {
+              try {
+                LollypopSDK.getInstance().disconnect();
+              } catch (Exception e) {
+                log.append(e.getMessage() + "\n");
+              }
+              connect.setEnabled(true);
+              disconnect.setEnabled(false);
+            }
           }
 
           @Override
