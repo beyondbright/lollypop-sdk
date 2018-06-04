@@ -107,7 +107,7 @@ public void init(Context context)
 
 2、手机蓝牙死机,重启蓝牙或者重启手机恢复。
 
-- 断开连接。如果在Activity中调用connect方法，那在Activity销毁的时候需要调用disconnect方法。因为在connect方法中有绑定蓝牙的service，需要在disconnect方法中解绑。
+- 断开连接。如果在Activity中调用connect方法，那在Activity销毁的时候需要调用disconnect方法。
 
 ```
   /**
