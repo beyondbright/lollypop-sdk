@@ -12,7 +12,7 @@ LollypopSDK提供了连接棒米体温计(Femometer)和棒米耳温枪(Earmo)的
 ## 相关配置
 - 添加dependencies
 ```
-compile 'cn.lollypop.android:LollypopSDK:1.5.4'
+compile 'cn.lollypop.android:LollypopSDK:2.0.9'
 ```
 - 在AndroidManifest.xml中添加权限蓝牙相关权限及Service
 ```
@@ -32,9 +32,9 @@ compile 'cn.lollypop.android:LollypopSDK:1.5.4'
 </application>
 ```
 ## 相关接口
-- 初始化SDK。建议在Application中调用，type选择体温计(FEMOMETER)还是耳温枪(EARMO)
+- 初始化SDK。建议在Application中调用
 ```
-public void init(Context context, LollypopSDK.Type type)
+public void init(Context context)
 ```
 - 创建用户。向官方申请appKey之后需要创建用户才能使用该SDK
 
@@ -78,7 +78,7 @@ public void init(Context context, LollypopSDK.Type type)
 
 ```
   /**
-   * 登出
+   * 登出，同时清除设备地址
    *
    * @param context context
    */
@@ -89,11 +89,16 @@ public void init(Context context, LollypopSDK.Type type)
 
 ```
   /**
-   * 连接体温计
+   * 连接棒米体温计，如果之前已经连接上，会直接进行连接，不再扫描
    *
-   * @throws LollypopException
+   * @throws LollypopException      其他异常
+   * @throws NoPermissionException  没有定位权限，出现这个异常可以调用 requestLocationPermissions() 方法请求权限
+   * @throws NotSupportBleException 该手机不支持BLE
+   * @throws NotEnableBleException  蓝牙没打开
+   * @throws NoDeviceExistException 硬件设备类型异常，直接调用connect方法不会出现这个异常
    */
-  public void connect() throws LollypopException
+  public void connect() throws LollypopException, NoPermissionException,
+      NotSupportBleException, NotEnableBleException, NoDeviceExistException
 ```
 
 一般调用connect后40秒还未连接成功,可能原因有两种:
@@ -162,15 +167,4 @@ public void init(Context context, LollypopSDK.Type type)
     // 收到体温数据 Temperature {temperatureInt: 温度Int型（比如收到3655，就是36.55摄氏度），measureTimestamp：测温的时间戳，calculate：是否是预测值，deviceUserId：预留字段}
     void receiveTemperature(Temperature temperature);
   }
-```
-
-- 是否需要GPS授权
-
-```
-  /**
-   * 是否需要开启GPS定位, Android 6.0之后扫描蓝牙需要开启GPS定位！
-   * @param context context
-   * @return true 需要开启GPS定位，false 不需要开启GPS定位
-   */
-  public boolean needGPSPermission(Context context)
 ```

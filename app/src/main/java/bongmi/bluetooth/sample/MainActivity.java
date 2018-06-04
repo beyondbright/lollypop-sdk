@@ -1,18 +1,17 @@
 package bongmi.bluetooth.sample;
 
-import java.util.ArrayList;
-
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import com.basic.util.Callback;
 
+import cn.lollypop.android.thermometer.ble.exceptions.NoDeviceExistException;
+import cn.lollypop.android.thermometer.ble.exceptions.NoPermissionException;
+import cn.lollypop.android.thermometer.ble.exceptions.NotEnableBleException;
+import cn.lollypop.android.thermometer.ble.exceptions.NotSupportBleException;
 import cn.lollypop.android.thermometer.ble.model.Temperature;
 import cn.lollypop.android.thermometer.device.storage.DeviceInfo;
 import cn.lollypop.android.thermometer.network.basic.Response;
@@ -30,17 +29,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    log = (TextView) findViewById(R.id.log);
-    disconnect = (Button) findViewById(R.id.disconnect);
+    log = findViewById(R.id.log);
+    disconnect = findViewById(R.id.disconnect);
     disconnect.setOnClickListener(this);
     disconnect.setEnabled(false);
 
-    connect = (Button) findViewById(R.id.connect);
+    connect = findViewById(R.id.connect);
     connect.setOnClickListener(this);
 
-    Button getDeviceInfoBtn = (Button) findViewById(R.id.getDeviceInfo);
+    Button getDeviceInfoBtn = findViewById(R.id.getDeviceInfo);
     getDeviceInfoBtn.setOnClickListener(this);
-    Button signOut = (Button) findViewById(R.id.signOut);
+    Button signOut = findViewById(R.id.signOut);
     signOut.setOnClickListener(this);
 
     LollypopSDK.getInstance().registerCallback(
@@ -85,7 +84,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     try {
       LollypopSDK.getInstance().disconnect();
-    } catch (Exception e) {
+    } catch (LollypopException e) {
+      e.printStackTrace();
     }
   }
 
@@ -127,33 +127,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
   }
 
   private void doConnect() {
-    if (LollypopSDK.getInstance().needGPSPermission(this)) {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        ArrayList<String> permissions = new ArrayList<>();
-
-        if (!(ContextCompat.checkSelfPermission(this,
-            Manifest.permission.ACCESS_COARSE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED)) {
-          permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
-        }
-        if (!(ContextCompat.checkSelfPermission(this,
-            Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED)) {
-          permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
-        }
-        if (permissions.size() > 0) {
-          requestPermissions(permissions.toArray(
-              new String[permissions.size()]), 100);
-        }
-      }
-      log.append("请开启GPS并授权\n");
-      return;
-    }
-
     try {
       LollypopSDK.getInstance().connect();
     } catch (LollypopException e) {
       log.append(e.getMessage() + "\n");
+    } catch (NoPermissionException e) {
+      log.append("请开启GPS并授权\n");
+      LollypopSDK.getInstance().requestLocationPermissions(this,
+          new Callback() {
+            @Override
+            public void doCallback(Boolean aBoolean, Object o) {
+              if (aBoolean) {
+                log.append("授权成功\n");
+              } else {
+                log.append("授权失败\n");
+              }
+            }
+          });
+    } catch (NoDeviceExistException e) {
+      log.append("设备类型错误\n");
+    } catch (NotEnableBleException e) {
+      log.append("蓝牙未打开\n");
+    } catch (NotSupportBleException e) {
+      log.append("该手机不支持低功耗蓝牙\n");
     }
     connect.setEnabled(false);
   }

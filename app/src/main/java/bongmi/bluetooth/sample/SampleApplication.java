@@ -15,6 +15,6 @@ public class SampleApplication extends Application {
   @Override
   public void onCreate() {
     super.onCreate();
-    LollypopSDK.getInstance().init(this, LollypopSDK.Type.EARMO);
+    LollypopSDK.getInstance().init(this);
   }
 }
