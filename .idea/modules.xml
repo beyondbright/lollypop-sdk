@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/FemometerBluetoothSample.iml" filepath="$PROJECT_DIR$/FemometerBluetoothSample.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lollypop-sdk.iml" filepath="$PROJECT_DIR$/lollypop-sdk.iml" />
     </modules>
   </component>
 </project>
