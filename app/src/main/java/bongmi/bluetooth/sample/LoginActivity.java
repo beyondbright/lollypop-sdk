@@ -25,6 +25,7 @@ public class LoginActivity extends AppCompatActivity
 
   private static final String appKey = "gqqmgtHBgapew6ke";
   private EditText phoneNo;
+  private EditText userId;
   private EditText password;
   private TextView log;
 
@@ -34,14 +35,19 @@ public class LoginActivity extends AppCompatActivity
 
     setContentView(R.layout.activity_login);
 
-    phoneNo = (EditText) findViewById(R.id.phoneNo);
-    password = (EditText) findViewById(R.id.password);
-    log = (TextView) findViewById(R.id.log);
+    phoneNo = findViewById(R.id.phoneNo);
+    userId = findViewById(R.id.userId);
+    password = findViewById(R.id.password);
+    log = findViewById(R.id.log);
 
-    Button signUp = (Button) findViewById(R.id.signUp);
+    Button signUp = findViewById(R.id.signUp);
     signUp.setOnClickListener(this);
-    Button signIn = (Button) findViewById(R.id.signIn);
+    Button signIn = findViewById(R.id.signIn);
     signIn.setOnClickListener(this);
+    Button signUpByUserId = findViewById(R.id.signUpByUserId);
+    signUpByUserId.setOnClickListener(this);
+    Button signInByUserId = findViewById(R.id.signInByUserId);
+    signInByUserId.setOnClickListener(this);
 
     // enable debug model to show logs
     LollypopSDK.getInstance().enableDebug();
@@ -97,6 +103,12 @@ public class LoginActivity extends AppCompatActivity
       case R.id.signUp:
         signUp();
         break;
+      case R.id.signInByUserId:
+        signInByUserId();
+        break;
+      case R.id.signUpByUserId:
+        signUpByUserId();
+        break;
     }
   }
 
@@ -130,6 +142,26 @@ public class LoginActivity extends AppCompatActivity
     LollypopSDK.getInstance().createUser(this, appKey,
         Long.valueOf(phoneNo.getText().toString()),
         password.getText().toString());
+  }
+
+  private void signInByUserId() {
+    if (TextUtils.isEmpty(userId.getText().toString().trim())) {
+      log.append("Please input userId");
+      return;
+    }
+
+    LollypopSDK.getInstance().signIn(this, appKey,
+        userId.getText().toString());
+  }
+
+  private void signUpByUserId() {
+    if (TextUtils.isEmpty(userId.getText().toString().trim())) {
+      log.append("Please input userId");
+      return;
+    }
+
+    LollypopSDK.getInstance().createUser(this, appKey,
+        userId.getText().toString());
   }
 
   private void loginSuc() {

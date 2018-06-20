@@ -17,6 +17,7 @@ import cn.lollypop.android.thermometer.device.storage.DeviceInfo;
 import cn.lollypop.android.thermometer.network.basic.Response;
 import cn.lollypop.android.thermometer.sdk.LollypopSDK;
 import cn.lollypop.be.exception.LollypopException;
+import cn.lollypop.be.model.DeviceType;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -41,6 +42,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     getDeviceInfoBtn.setOnClickListener(this);
     Button signOut = findViewById(R.id.signOut);
     signOut.setOnClickListener(this);
+    Button setCBtn = findViewById(R.id.setC);
+    setCBtn.setOnClickListener(this);
+    Button setFBtn = findViewById(R.id.setF);
+    setFBtn.setOnClickListener(this);
 
     LollypopSDK.getInstance().registerCallback(
         new LollypopSDK.LollypopCallback() {
@@ -121,6 +126,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
         finish();
         break;
+      case R.id.setC:
+        try {
+          LollypopSDK.getInstance().setUnit(true);
+        } catch (LollypopException e) {
+          log.append(e.getMessage() + "\n");
+        }
+        break;
+      case R.id.setF:
+        try {
+          LollypopSDK.getInstance().setUnit(false);
+        } catch (LollypopException e) {
+          log.append(e.getMessage() + "\n");
+        }
+        break;
       default:
         break;
     }
@@ -128,7 +147,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
   private void doConnect() {
     try {
-      LollypopSDK.getInstance().connect();
+      // 连接棒米体温计
+      // LollypopSDK.getInstance().connect();
+      // 连接棒米耳温枪
+      LollypopSDK.getInstance().connect(DeviceType.SMARTTHERMO);
     } catch (LollypopException e) {
       log.append(e.getMessage() + "\n");
     } catch (NoPermissionException e) {
@@ -139,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void doCallback(Boolean aBoolean, Object o) {
               if (aBoolean) {
                 log.append("授权成功\n");
+                doConnect();
               } else {
                 log.append("授权失败\n");
               }
