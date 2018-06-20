@@ -103,7 +103,7 @@ public void createUser(Context context, String appKey, String userId)
    */
   public void signOut(Context context)
 ```
-- Android 6.0之后需要定位权限，如何使用参加demo
+- Android 6.0之后需要定位权限，如何使用参考demo
 ```
  /**
    * Android 6.0之后扫描蓝牙需要开启GPS定位
