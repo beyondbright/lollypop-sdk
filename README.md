@@ -218,5 +218,8 @@ public void createUser(Context context, String appKey, String userId)
 
     // 收到体温数据 Temperature {temperatureInt: 温度Int型（比如收到3655，就是36.55摄氏度），measureTimestamp：测温的时间戳，calculate：是否是预测值，deviceUserId：预留字段}
     void receiveTemperature(Temperature temperature);
+    
+    // 收到身高体重数据
+    void receiveGrowp(Growp growp);
   }
 ```

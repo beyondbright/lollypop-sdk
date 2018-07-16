@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.bm.android.thermometer.ble.model.Growp;
 import com.bm.android.thermometer.ble.model.Temperature;
 import com.bm.android.thermometer.network.basic.Response;
 import com.bm.android.thermometer.sdk.LollypopSDK;
@@ -86,6 +87,11 @@ public class LoginActivity extends AppCompatActivity
 
           @Override
           public void receiveTemperature(Temperature temperature) {
+
+          }
+
+          @Override
+          public void receiveGrowp(Growp growp) {
 
           }
         });

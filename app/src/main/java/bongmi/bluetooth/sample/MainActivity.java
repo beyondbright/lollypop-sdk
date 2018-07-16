@@ -11,6 +11,7 @@ import com.bm.android.thermometer.ble.exceptions.NoDeviceExistException;
 import com.bm.android.thermometer.ble.exceptions.NoPermissionException;
 import com.bm.android.thermometer.ble.exceptions.NotEnableBleException;
 import com.bm.android.thermometer.ble.exceptions.NotSupportBleException;
+import com.bm.android.thermometer.ble.model.Growp;
 import com.bm.android.thermometer.ble.model.Temperature;
 import com.bm.android.thermometer.device.storage.DeviceInfo;
 import com.bm.android.thermometer.network.basic.Response;
@@ -79,6 +80,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
           @Override
           public void receiveTemperature(Temperature temperature) {
             log.append(temperature.toString() + "\n");
+          }
+
+          @Override
+          public void receiveGrowp(Growp growp) {
+            log.append(growp.toString() + "\n");
           }
         });
   }
