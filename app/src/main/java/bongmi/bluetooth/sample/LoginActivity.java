@@ -10,9 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import cn.lollypop.android.thermometer.ble.model.Temperature;
-import cn.lollypop.android.thermometer.network.basic.Response;
-import cn.lollypop.android.thermometer.sdk.LollypopSDK;
+import com.bm.android.thermometer.ble.model.Temperature;
+import com.bm.android.thermometer.network.basic.Response;
+import com.bm.android.thermometer.sdk.LollypopSDK;
 
 /**
  * Copyright (c) 2016, Bongmi

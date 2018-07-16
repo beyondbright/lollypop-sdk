@@ -1,8 +1,7 @@
 package bongmi.bluetooth.sample;
 
 import android.app.Application;
-
-import cn.lollypop.android.thermometer.sdk.LollypopSDK;
+import com.bm.android.thermometer.sdk.LollypopSDK;
 
 /**
  * Copyright (c) 2016, Bongmi

@@ -10,11 +10,36 @@ LollypopSDK提供了连接棒米体温计(Femometer)和棒米耳温枪(Earmo)的
 7. 连接成功后可以调用`LollypopSDK.getInstance().getDeviceInfo()`方法获取设备信息，测温成功会执行在第三步注册的`receiveTemperature()`回调方法
 
 ## 相关配置
-- 添加dependencies
+### Gradle
+- 修改项目的build.gradle
 ```
-compile 'cn.lollypop.android:LollypopSDK:2.1.4'
+allprojects {
+  repositories {
+    jcenter()
+    google()
+
+    maven {
+      url 'https://dl.bintray.com/beyondbright/bongmi'
+    }
+  }
+}
 ```
-- 在AndroidManifest.xml中添加权限蓝牙相关权限及Service
+- 在 app 的 build.gradle 中添加相应依赖
+```
+compile 'cn.lollypop.android:LollypopSDK:2.1.5'
+```
+
+### Maven
+```
+<dependency>
+  <groupId>com.bm.android</groupId>
+  <artifactId>LollypopSDK</artifactId>
+  <version>2.1.5</version>
+  <type>pom</type>
+</dependency>
+```
+
+### 蓝牙及相关权限申明
 ```
 <!-- 蓝牙 -->
 <uses-permission android:name="android.permission.BLUETOOTH"/>

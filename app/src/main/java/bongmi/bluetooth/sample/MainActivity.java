@@ -7,15 +7,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import com.basic.util.Callback;
+import com.bm.android.thermometer.ble.exceptions.NoDeviceExistException;
+import com.bm.android.thermometer.ble.exceptions.NoPermissionException;
+import com.bm.android.thermometer.ble.exceptions.NotEnableBleException;
+import com.bm.android.thermometer.ble.exceptions.NotSupportBleException;
+import com.bm.android.thermometer.ble.model.Temperature;
+import com.bm.android.thermometer.device.storage.DeviceInfo;
+import com.bm.android.thermometer.network.basic.Response;
+import com.bm.android.thermometer.sdk.LollypopSDK;
 
-import cn.lollypop.android.thermometer.ble.exceptions.NoDeviceExistException;
-import cn.lollypop.android.thermometer.ble.exceptions.NoPermissionException;
-import cn.lollypop.android.thermometer.ble.exceptions.NotEnableBleException;
-import cn.lollypop.android.thermometer.ble.exceptions.NotSupportBleException;
-import cn.lollypop.android.thermometer.ble.model.Temperature;
-import cn.lollypop.android.thermometer.device.storage.DeviceInfo;
-import cn.lollypop.android.thermometer.network.basic.Response;
-import cn.lollypop.android.thermometer.sdk.LollypopSDK;
 import cn.lollypop.be.exception.LollypopException;
 import cn.lollypop.be.model.DeviceType;
 
@@ -150,7 +150,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
       // 连接棒米体温计
       // LollypopSDK.getInstance().connect();
       // 连接棒米耳温枪
-      LollypopSDK.getInstance().connect(DeviceType.SMARTTHERMO);
+      // LollypopSDK.getInstance().connect(DeviceType.SMARTTHERMO);
+      // 连接棒米生长发育仪
+      LollypopSDK.getInstance().connect(DeviceType.GROWP);
     } catch (LollypopException e) {
       log.append(e.getMessage() + "\n");
     } catch (NoPermissionException e) {
