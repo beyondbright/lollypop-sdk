@@ -198,7 +198,7 @@ public void createUser(Context context, String appKey, String userId)
 
 - 设置生长发育仪体重单位
 ```
-	/**
+  /**
    * 设置身高体重仪的体重单位
    *
    * @param unit 体重单位
@@ -209,7 +209,7 @@ public void createUser(Context context, String appKey, String userId)
 
 - 设置生长发育仪身高单位
 ```
-	/**
+  /**
    * 设置身高体重仪的身高单位
    *
    * @param unit 身高单位
