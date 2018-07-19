@@ -19,6 +19,8 @@ import com.bm.android.thermometer.sdk.LollypopSDK;
 
 import cn.lollypop.be.exception.LollypopException;
 import cn.lollypop.be.model.DeviceType;
+import cn.lollypop.be.unit.HeightUnit;
+import cn.lollypop.be.unit.WeightUnit;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -39,14 +41,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     connect = findViewById(R.id.connect);
     connect.setOnClickListener(this);
 
-    Button getDeviceInfoBtn = findViewById(R.id.getDeviceInfo);
-    getDeviceInfoBtn.setOnClickListener(this);
-    Button signOut = findViewById(R.id.signOut);
-    signOut.setOnClickListener(this);
-    Button setCBtn = findViewById(R.id.setC);
-    setCBtn.setOnClickListener(this);
-    Button setFBtn = findViewById(R.id.setF);
-    setFBtn.setOnClickListener(this);
+    findViewById(R.id.getDeviceInfo).setOnClickListener(this);
+    findViewById(R.id.signOut).setOnClickListener(this);
+    findViewById(R.id.setC).setOnClickListener(this);
+    findViewById(R.id.setF).setOnClickListener(this);
+    findViewById(R.id.setKG).setOnClickListener(this);
+    findViewById(R.id.setLB).setOnClickListener(this);
+    findViewById(R.id.setJIN).setOnClickListener(this);
+    findViewById(R.id.setCM).setOnClickListener(this);
+    findViewById(R.id.setINCH).setOnClickListener(this);
 
     LollypopSDK.getInstance().registerCallback(
         new LollypopSDK.LollypopCallback() {
@@ -134,14 +137,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         break;
       case R.id.setC:
         try {
-          LollypopSDK.getInstance().setUnit(true);
+          LollypopSDK.getInstance().setTemperatureUnit(true);
         } catch (LollypopException e) {
           log.append(e.getMessage() + "\n");
         }
         break;
       case R.id.setF:
         try {
-          LollypopSDK.getInstance().setUnit(false);
+          LollypopSDK.getInstance().setTemperatureUnit(false);
+        } catch (LollypopException e) {
+          log.append(e.getMessage() + "\n");
+        }
+        break;
+      case R.id.setKG:
+        try {
+          LollypopSDK.getInstance().setGrowpWeightUnit(WeightUnit.KILOGRAM);
+        } catch (LollypopException e) {
+          log.append(e.getMessage() + "\n");
+        }
+        break;
+      case R.id.setLB:
+        try {
+          LollypopSDK.getInstance().setGrowpWeightUnit(WeightUnit.POUND);
+        } catch (LollypopException e) {
+          log.append(e.getMessage() + "\n");
+        }
+        break;
+      case R.id.setJIN:
+        try {
+          LollypopSDK.getInstance().setGrowpWeightUnit(WeightUnit.JIN);
+        } catch (LollypopException e) {
+          log.append(e.getMessage() + "\n");
+        }
+        break;
+      case R.id.setCM:
+        try {
+          LollypopSDK.getInstance().setGrowpHeightUnit(HeightUnit.CM);
+        } catch (LollypopException e) {
+          log.append(e.getMessage() + "\n");
+        }
+        break;
+      case R.id.setINCH:
+        try {
+          LollypopSDK.getInstance().setGrowpHeightUnit(HeightUnit.INCH);
         } catch (LollypopException e) {
           log.append(e.getMessage() + "\n");
         }

@@ -4,22 +4,6 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-  <ScrollView
-      android:layout_width="match_parent"
-      android:layout_height="350dp">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-      <TextView
-          android:id="@+id/log"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"/>
-    </LinearLayout>
-  </ScrollView>
-
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -85,4 +69,72 @@
         android:text="set ℉"
         android:textAllCaps="false"/>
   </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/setKG"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="set KG"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/setLB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="set LB"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/setJIN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="set JIN"
+        android:textAllCaps="false"/>
+  </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/setCM"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="set CM"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/setINCH"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="set Inch"
+        android:textAllCaps="false"/>
+  </LinearLayout>
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+      <TextView
+          android:id="@+id/log"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"/>
+    </LinearLayout>
+  </ScrollView>
 </LinearLayout>

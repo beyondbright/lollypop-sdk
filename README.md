@@ -26,7 +26,7 @@ allprojects {
 ```
 - 在 app 的 build.gradle 中添加相应依赖
 ```
-compile 'cn.lollypop.android:LollypopSDK:2.1.5'
+compile 'cn.lollypop.android:LollypopSDK:2.2.0'
 ```
 
 ### Maven
@@ -34,7 +34,7 @@ compile 'cn.lollypop.android:LollypopSDK:2.1.5'
 <dependency>
   <groupId>com.bm.android</groupId>
   <artifactId>LollypopSDK</artifactId>
-  <version>2.1.5</version>
+  <version>2.2.0</version>
   <type>pom</type>
 </dependency>
 ```
@@ -183,7 +183,7 @@ public void createUser(Context context, String appKey, String userId)
   public DeviceInfo getDeviceInfo(Context context) throws LollypopException
 ```
 
-- 设置单位
+- 设置温度单位
 ```
   /**
    * 设置耳温枪的单位
@@ -191,6 +191,28 @@ public void createUser(Context context, String appKey, String userId)
    * @param isCentigrade 是否设置成摄氏度
    */
   public void setUnit(boolean isCentigrade) throws LollypopException
+```
+
+- 设置生长发育仪体重单位
+```
+	/**
+   * 设置生长发育仪体重单位
+   *
+   * @param unit 体重单位
+   * @throws LollypopException
+   */
+  public void setGrowpWeightUnit(Weight unit) throws LollypopException
+```
+
+- 设置生长发育仪身高单位
+```
+	/**
+   * 设置生长发育仪身高单位
+   *
+   * @param unit 身高单位
+   * @throws LollypopException
+   */
+  public void setGrowpHeightUnit(Height unit) throws LollypopException
 ```
 
 - 设置回调方法
@@ -217,8 +239,7 @@ public void createUser(Context context, String appKey, String userId)
     void disconnect();
 
     // 收到体温数据 Temperature {temperatureInt: 温度Int型（比如收到3655，就是36.55摄氏度），measureTimestamp：测温的时间戳，calculate：是否是预测值，deviceUserId：预留字段}
-    void receiveTemperature(Temperature temperature);
-    
+    void receiveTemperature(Temperature temperature);    
     // 收到身高体重数据
     void receiveGrowp(Growp growp);
   }
