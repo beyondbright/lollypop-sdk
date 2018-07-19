@@ -6,8 +6,8 @@ LollypopSDK提供了连接棒米体温计(Femometer)和棒米耳温枪(Earmo)的
 3. 初始化SDK，调用`LollypopSDK.getInstance().init()`，建议在application中调用
 4. 调用`LollypopSDK.getInstance().registerCallback()`注册回调
 5. 调用`LollypopSDK.getInstance().createUser()`方法创建用户或者`LollypopSDK.getInstance().signIn()`方法登录，已经登录过就不需要重新登录，是否已经登录可用方法`LollypopSDK.getInstance().isLogin()`来判断
-6. 调用`LollypopSDK.getInstance().connect()`方法连接已唤醒的设备（基础体温计需要插拔盖子唤醒，耳温枪需要按一下开关唤醒）
-7. 连接成功后可以调用`LollypopSDK.getInstance().getDeviceInfo()`方法获取设备信息，测温成功会执行在第三步注册的`receiveTemperature()`回调方法
+6. 调用`LollypopSDK.getInstance().connect()`方法连接已唤醒的设备（基础体温计需要插拔盖子唤醒，耳温枪需要按一下开关唤醒，身高体重仪需要打开底部盖子）
+7. 连接成功后可以调用`LollypopSDK.getInstance().getDeviceInfo()`方法获取设备信息，测温成功会执行在第三步注册的`receiveTemperature()`回调方法，获取身高体重成功会执行在第三步注册的`receiveGrowp()` 回调方法
 
 ## 相关配置
 ### Gradle
@@ -128,20 +128,23 @@ public void createUser(Context context, String appKey, String userId)
    */
   public void signOut(Context context)
 ```
+
 - Android 6.0之后需要定位权限，如何使用参考demo
+
 ```
  /**
    * Android 6.0之后扫描蓝牙需要开启GPS定位
    */
   public void requestLocationPermissions(Activity activity, Callback callback)
 ```
-- 连接体温计
+
+- 连接设备
 
 ```
   /**
    * 连接棒米设备，如果之前已经连接上，会直接进行连接，不再扫描
    *
-   * @param deviceType 棒米基础体温计：BASAL_THERMOMETER，棒米耳温枪：SMARTTHERMO。不填默认是连接棒米基础体温计。
+   * @param deviceType 棒米基础体温计：BASAL_THERMOMETER，棒米耳温枪：SMARTTHERMO，棒米身高体重仪：GROWP。不填默认是连接棒米基础体温计。
    *
    * @throws LollypopException      其他异常
    * @throws NoPermissionException  没有定位权限，出现这个异常可以调用 requestLocationPermissions() 方法请求权限
@@ -190,29 +193,29 @@ public void createUser(Context context, String appKey, String userId)
    *
    * @param isCentigrade 是否设置成摄氏度
    */
-  public void setUnit(boolean isCentigrade) throws LollypopException
+  public void setTemperatureUnit(boolean isCentigrade) throws LollypopException
 ```
 
 - 设置生长发育仪体重单位
 ```
 	/**
-   * 设置生长发育仪体重单位
+   * 设置身高体重仪的体重单位
    *
    * @param unit 体重单位
    * @throws LollypopException
    */
-  public void setGrowpWeightUnit(Weight unit) throws LollypopException
+  public void setGrowpWeightUnit(WeightUnit unit) throws LollypopException
 ```
 
 - 设置生长发育仪身高单位
 ```
 	/**
-   * 设置生长发育仪身高单位
+   * 设置身高体重仪的身高单位
    *
    * @param unit 身高单位
    * @throws LollypopException
    */
-  public void setGrowpHeightUnit(Height unit) throws LollypopException
+  public void setGrowpHeightUnit(HeightUnit unit) throws LollypopException
 ```
 
 - 设置回调方法
@@ -239,8 +242,9 @@ public void createUser(Context context, String appKey, String userId)
     void disconnect();
 
     // 收到体温数据 Temperature {temperatureInt: 温度Int型（比如收到3655，就是36.55摄氏度），measureTimestamp：测温的时间戳，calculate：是否是预测值，deviceUserId：预留字段}
-    void receiveTemperature(Temperature temperature);    
-    // 收到身高体重数据
+    void receiveTemperature(Temperature temperature);
+    
+    // 收到身高体重数据 Growp {createTime: 创建时间，measureTimestamp：测量身高体重的时间戳，detail：具体的测量数据，格式如下：{"headCircumference":0.0,"height":15.4,"lengthUnit":1,"weight":0.0,"weightUnit":0,"value":0}}
     void receiveGrowp(Growp growp);
   }
 ```
