@@ -26,7 +26,7 @@ allprojects {
 ```
 - 在 app 的 build.gradle 中添加相应依赖
 ```
-compile 'com.bm.android:LollypopSDK:2.2.1'
+compile 'com.bm.android:LollypopSDK:2.2.2'
 ```
 
 ### Maven
