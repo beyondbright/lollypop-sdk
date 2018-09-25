@@ -34,7 +34,7 @@ compile 'com.bm.android:LollypopSDK:2.2.2'
 <dependency>
   <groupId>com.bm.android</groupId>
   <artifactId>LollypopSDK</artifactId>
-  <version>2.2.0</version>
+  <version>2.2.2</version>
   <type>pom</type>
 </dependency>
 ```
