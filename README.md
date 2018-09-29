@@ -1,4 +1,253 @@
-# LollypopSDK说明
+# LollypopSDK Instruction
+LollypopSDK provides the interfaces to Femometer, Earmo and Growp.
+## Tutorial
+1. Apply for AppKey from Bongmi.
+2. Add dependency, details as follow in the related configuration.
+3. Initialize SDK, call `LollypopSDK.getInstance().init()`, (It is suggested to call in application).
+4. Call `LollypopSDK.getInstance().registerCallback()` to register callback.
+5. Call `LollypopSDK.getInstance().createUser()` to create an account or call `LollypopSDK.getInstance().signIn()` to log in (It just needs call once). Use `LollypopSDK.getInstance().isLogin()` to check if needs to log in.
+6. Call `LollypopSDK.getInstance().connect()` to connect the awaken devices (Decap to awaken Femometer, press button to awaken Earmo, Rotate the level ruler to awaken Growp).
+7. After successful connection, call `LollypopSDK.getInstance().getDeviceInfo()` to get device info, After measurement is done, the callback method `receiveTemperature()` (`receiveGrowp()` for Growp ) registered in step 3 will be executed. 
+
+## Related configuration
+### Gradle
+- modify build.gradle in project.
+```
+allprojects {
+  repositories {
+    jcenter()
+    google()
+
+    maven {
+      url 'https://dl.bintray.com/beyondbright/bongmi'
+    }
+  }
+}
+```
+- Add related dependency in build.gradle in the app module.
+```
+compile 'com.bm.android:LollypopSDK:2.2.2'
+```
+
+### Maven
+```
+<dependency>
+  <groupId>com.bm.android</groupId>
+  <artifactId>LollypopSDK</artifactId>
+  <version>2.2.2</version>
+  <type>pom</type>
+</dependency>
+```
+
+### Bluetooth permissions
+```
+<!-- 蓝牙 -->
+<uses-permission android:name="android.permission.BLUETOOTH"/>
+<uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+<uses-feature
+    android:name="android.hardware.bluetooth_le"
+    android:required="false"/>
+<!-- 网络 -->
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+```
+## Related interface
+- Initialize SDK. It is suggested to call in Application
+```
+public void init(Context context)
+```
+- Create an account. Apply for appKey and create an account to use the SDK.
+
+```
+  /**
+   * Create an account by phone number
+   *
+   * @param context  context
+   * @param appKey   applied key
+   * @param phone    phone number
+   * @param password password
+   */
+  public void createUser(Context context, String appKey, long phone, String password)
+```
+```
+/**
+   * Create an account by userId
+   *
+   * @param context  context
+   * @param appKey   allied key
+   * @param userId   userId
+   */
+public void createUser(Context context, String appKey, String userId)
+```
+
+- Log in. Log in before connecting Bluetooth.
+
+```
+  /**
+   * Log in by phone number
+   *
+   * @param context  context
+   * @param appKey   app key
+   * @param phone    phone number
+   * @param password password
+   */
+  public void signIn(Context context, String appKey, long phone, String password)
+```
+
+```
+  /**
+   * Log in by userId
+   *
+   * @param context  context
+   * @param appKey   app key
+   * @param userId   userId
+   */
+  public void signIn(Context context, String appKey, String userId)
+```
+
+- Check if needs to login.
+
+```
+  /**
+   * Check if needs to log in
+   * @param context context
+   * @return true if already logged in
+   */
+  public boolean isLogin(Context context)
+```
+  
+- Log out. This function is for switching users.
+
+```
+  /**
+   * Log out and clear device address.
+   *
+   * @param context context
+   */
+  public void signOut(Context context)
+```
+
+- Require location permission for system above Android 6.0, refer to demo for instruction.
+
+```
+ /**
+   * Require access to GPS to scan Bluetooth for system above Android 6.0.
+   */
+  public void requestLocationPermissions(Activity activity, Callback callback)
+```
+
+- Connect devices.
+
+```
+  /**
+   * Connect to Bongmi devices
+   *
+   * @param deviceType Femometer: BASAL_THERMOMETER, Earmo: SMARTTHERMO, GROWP: GROWP. Default setting to connect Femometer.
+   *
+   * @throws LollypopException      Other exceptions.
+   * @throws NoPermissionException  No location permission, call requestLocationPermissions() to ask for permission.
+   * @throws NotSupportBleException The device doesn’t support BLE.
+   * @throws NotEnableBleException  Bluetooth is not enabled.
+   * @throws NoDeviceExistException Can not find the device, May it is not awake.
+   */
+  public void connect(DeviceType deviceType) throws LollypopException, NoPermissionException,
+      NotSupportBleException, NotEnableBleException, NoDeviceExistException
+```
+There are 2 possible reasons if not connected after calling for 40 seconds:
+
+1、The device is dormant and need to be awakened. Call connect to reconnect. 
+2、Bluetooth crash, restart Bluetooth or phone.
+
+- Disconnect. If call connect in Activity, call disconnect when destroying Activity.
+
+```
+  /**
+   * Disconnect.
+   *
+   * @throws LollypopException
+   */
+  public void disconnect() throws LollypopException
+```
+
+- Acquire device info, call the interface to acquire device info after connected.
+
+```
+  /**
+   * Acquire device info.
+   *
+   * @param context context
+   * @return DeviceInfo {address: bluetooth address，battery: battery，version：version}
+   * @throws LollypopException
+   */
+  public DeviceInfo getDeviceInfo(Context context) throws LollypopException
+```
+
+- Set unit of Earmo.
+```
+  /**
+   * Set unit of Earmo.
+   *
+   * @param isCentigrade. If set to be Celsius degree.
+   */
+  public void setTemperatureUnit(boolean isCentigrade) throws LollypopException
+```
+
+- Set weight unit of Growp.
+```
+  /**
+   * Set weight unit of Growp.
+   *
+   * @param unit, weight unit
+   * @throws LollypopException
+   */
+  public void setGrowpWeightUnit(WeightUnit unit) throws LollypopException
+```
+
+- Set height unit of Growp.
+```
+  /**
+   * Set height unit of Growp.
+   *
+   * @param unit, height unit
+   * @throws LollypopException
+   */
+  public void setGrowpHeightUnit(HeightUnit unit) throws LollypopException
+```
+
+- Regist callback method.
+
+```
+  /**
+   * Regist callback method.
+   *
+   * @param lollypopCallback LollypopCallback
+   */
+  public void registerCallback(LollypopCallback lollypopCallback)
+
+  public interface LollypopCallback {
+    // Create user callback
+    void createUser(Response response);
+
+    // log in callback
+    void login(Response response);
+
+    // connect callback
+    void connect(boolean suc);
+
+    // disconnect callback
+    void disconnect();
+
+    // Temperature {temperatureInt: type Int (If receive 3655,it means 36.55 Celsius degree), measureTimestamp: time stamp of measurement, calculate: if predicted value, deviceUserId: reserved field}
+    void receiveTemperature(Temperature temperature);
+    
+    // Growp {createTime: create timestamp, measureTimestamp: timestamp of measuring height and weight, detail: detailed measurement data, format: {"headCircumference":0.0,"height":15.4,"lengthUnit":1,"weight":0.0,"weightUnit":0,"value":0}}
+    void receiveGrowp(Growp growp);
+  }
+```
+
+# LollypopSDK中文说明
 LollypopSDK提供了连接棒米体温计(Femometer)、棒米耳温枪(Earmo)、棒米身高体重仪（Growp）的相关接口。
 ## 使用流程
 1. 向棒米官方申请appKey
