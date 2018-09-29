@@ -39,15 +39,15 @@ compile 'com.bm.android:LollypopSDK:2.2.2'
 </dependency>
 ```
 
-### Bluetooth permissions
+### Permissions
 ```
-<!-- 蓝牙 -->
+<!-- Bluetooth -->
 <uses-permission android:name="android.permission.BLUETOOTH"/>
 <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
 <uses-feature
     android:name="android.hardware.bluetooth_le"
     android:required="false"/>
-<!-- 网络 -->
+<!-- network -->
 <uses-permission android:name="android.permission.INTERNET"/>
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
