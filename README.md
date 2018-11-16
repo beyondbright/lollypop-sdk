@@ -26,7 +26,7 @@ allprojects {
 ```
 - Add related dependency in build.gradle in the app module.
 ```
-compile 'com.bm.android:LollypopSDK:2.2.6'
+compile 'com.bm.android:LollypopSDK:2.2.7'
 ```
 
 ### Maven
@@ -34,7 +34,7 @@ compile 'com.bm.android:LollypopSDK:2.2.6'
 <dependency>
   <groupId>com.bm.android</groupId>
   <artifactId>LollypopSDK</artifactId>
-  <version>2.2.6</version>
+  <version>2.2.7</version>
   <type>pom</type>
 </dependency>
 ```
@@ -275,7 +275,7 @@ allprojects {
 ```
 - 在 app 的 build.gradle 中添加相应依赖
 ```
-compile 'com.bm.android:LollypopSDK:2.2.6'
+compile 'com.bm.android:LollypopSDK:2.2.7'
 ```
 
 ### Maven
@@ -283,7 +283,7 @@ compile 'com.bm.android:LollypopSDK:2.2.6'
 <dependency>
   <groupId>com.bm.android</groupId>
   <artifactId>LollypopSDK</artifactId>
-  <version>2.2.6</version>
+  <version>2.2.7</version>
   <type>pom</type>
 </dependency>
 ```
