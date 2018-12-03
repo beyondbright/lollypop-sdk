@@ -51,8 +51,43 @@ compile 'com.bm.android:LollypopSDK:2.2.7'
 <uses-permission android:name="android.permission.INTERNET"/>
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-
 ```
+
+### ProGuard
+```
+-keepattributes Exceptions,InnerClasses,Signature,Deprecated,SourceFile,LineNumberTable,*Annotation*,EnclosingMethod
+
+#SDK
+-keep class com.bm.android.thermometer.** { *; }
+-keep class com.bm.android.thermometer.sdk.LollypopSDK { *; }
+-keep interface com.bm.android.thermometer.sdk.LollypopSDK$LollypopCallback {
+    *;
+}
+-ignorewarnings
+
+#Gson
+-keep class cn.lollypop.be.model.** { *; }
+-keep class com.google.gson.** { *; }
+-dontwarn com.google.gson.**
+
+#Retrofit2
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+
+#Serializable
+-keepclassmembers class * implements java.io.Serializable {
+    static final long serialVersionUID;
+    private static final java.io.ObjectStreamField[] serialPersistentFields;
+    !static !transient <fields>;
+    !private <fields>;
+    !private <methods>;
+    private void writeObject(java.io.ObjectOutputStream);
+    private void readObject(java.io.ObjectInputStream);
+    java.lang.Object writeReplace();
+    java.lang.Object readResolve();
+}
+```
+
 ## Related interface
 - Initialize SDK. It is suggested to call in Application
 ```
@@ -117,7 +152,7 @@ public void createUser(Context context, String appKey, String userId)
    */
   public boolean isLogin(Context context)
 ```
-  
+
 - Log out. This function is for switching users.
 
 ```
@@ -157,7 +192,7 @@ public void createUser(Context context, String appKey, String userId)
 ```
 There are 2 possible reasons if not connected after calling for 40 seconds:
 
-1、The device is dormant and need to be awakened. Call connect to reconnect. 
+1、The device is dormant and need to be awakened. Call connect to reconnect.
 2、Bluetooth crash, restart Bluetooth or phone.
 
 - Disconnect. If call connect in Activity, call disconnect when destroying Activity.
@@ -241,7 +276,7 @@ There are 2 possible reasons if not connected after calling for 40 seconds:
 
     // Temperature {temperatureInt: type Int (If receive 3655,it means 36.55 Celsius degree), measureTimestamp: time stamp of measurement, calculate: if predicted value, deviceUserId: reserved field}
     void receiveTemperature(Temperature temperature);
-    
+
     // Growp {createTime: create timestamp, measureTimestamp: timestamp of measuring height and weight, detail: detailed measurement data, format: {"headCircumference":0.0,"height":15.4,"lengthUnit":1,"weight":0.0,"weightUnit":0,"value":0}}
     void receiveGrowp(Growp growp);
   }
@@ -300,8 +335,44 @@ compile 'com.bm.android:LollypopSDK:2.2.7'
 <uses-permission android:name="android.permission.INTERNET"/>
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-
 ```
+
+### 混淆
+```
+# 并保留源文件名为"Proguard"字符串，而非原始的类名 并保留行号
+-keepattributes Exceptions,InnerClasses,Signature,Deprecated,SourceFile,LineNumberTable,*Annotation*,EnclosingMethod
+
+#SDK
+-keep class com.bm.android.thermometer.** { *; }
+-keep class com.bm.android.thermometer.sdk.LollypopSDK { *; }
+-keep interface com.bm.android.thermometer.sdk.LollypopSDK$LollypopCallback {
+    *;
+}
+-ignorewarnings
+
+#Gson
+-keep class cn.lollypop.be.model.** { *; }
+-keep class com.google.gson.** { *; }
+-dontwarn com.google.gson.**
+
+#Retrofit2
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+
+#保持 Serializable 不被混淆
+-keepclassmembers class * implements java.io.Serializable {
+    static final long serialVersionUID;
+    private static final java.io.ObjectStreamField[] serialPersistentFields;
+    !static !transient <fields>;
+    !private <fields>;
+    !private <methods>;
+    private void writeObject(java.io.ObjectOutputStream);
+    private void readObject(java.io.ObjectInputStream);
+    java.lang.Object writeReplace();
+    java.lang.Object readResolve();
+}
+```
+
 ## 相关接口
 - 初始化SDK。建议在Application中调用
 ```
